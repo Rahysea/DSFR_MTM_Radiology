@@ -12,7 +12,6 @@ dd.external_test = dd[which(dd$dataset == 0),]
 listVars = colnames(dd)[-c(1:2)]
 para = listVars[-26]
 
-# 单因素分析
 index_p = c();name = NULL
 res = NULL
 for(i in 1:length(para)){
