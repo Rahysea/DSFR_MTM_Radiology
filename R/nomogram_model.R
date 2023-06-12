@@ -12,6 +12,7 @@ dd.external_test = dd[which(dd$dataset == 0),]
 listVars = colnames(dd)[-c(1:2)]
 para = listVars[-26]
 
+# Univariate analysis
 index_p = c();name = NULL
 res = NULL
 for(i in 1:length(para)){
@@ -32,8 +33,19 @@ res$OR = exp(res$BETA)
 res$esitmate = paste(round(res$OR,3)," (",round(res$Low,3),", ",round(res$Up,3),")",sep="")
 # write.csv(res,"res_logistic_uni.csv",row.names=T)
 
+# Multivariate qualitative analysis 
+para.cat = para[index_p[c(1:5)]]
+formulA = as.formula(paste("MTM~",paste(para.cat, collapse = '+'),sep=""))
+fit.multi.cat = glm(formulA, family = binomial(link=logit), data = dd.train)
+co.multi = summary(fit.multi.cat)
+res.multi = data.frame(co.multi$coefficients)
+colnames(res.multi) = c("BETA","SE","Z","p")
+res.multi$Low = exp(res.multi$BETA-1.96*res.multi$SE); res.multi$Up= exp(res.multi$BETA+1.96*res.multi$SE);
+res.multi$OR = exp(res.multi$BETA)
+res.multi$esitmate = paste(round(res.multi$OR,3)," (",round(res.multi$Low,3),", ",round(res.multi$Up,3),")",sep="")
+write.csv(res.multi,"res_logistic_multi_cat.csv",row.names=T)
 
-
+# Multivariate qualitative + quantitative analysis
 para.all = para[index_p]
 formulA = as.formula(paste("MTM~",paste(para.all, collapse = '+'),sep=""))
 fit.multi = glm(formulA, family = binomial(link=logit), data = dd.train)
@@ -44,7 +56,6 @@ res.multi$Low = exp(res.multi$BETA-1.96*res.multi$SE); res.multi$Up= exp(res.mul
 res.multi$OR = exp(res.multi$BETA)
 res.multi$esitmate = paste(round(res.multi$OR,3)," (",round(res.multi$Low,3),", ",round(res.multi$Up,3),")",sep="")
 # write.csv(res.multi,"res_logistic_multi.csv",row.names=T)
-
 
 fit.step.cat = step(fit.multi.cat)
 co.multi = summary(fit.step.cat)
