@@ -312,7 +312,7 @@ library(pROC)
 library(rmda)
 library(rms)
 
-formulC = as.formula(paste("MTM~",paste(c(para.DLR,"Obvineco"), collapse = '+'),sep=""))
+formulC = as.formula(paste("MTM~",paste(c(para.DLR, "substantial_necrosis"), collapse = '+'),sep=""))
 fit.multi.3 = glm(formulC, data = dd.train)
 
 dd.train$lp.3 = predict(fit.multi.3, newdata = dd.train)
@@ -412,7 +412,7 @@ para = listVars[-26]
 formul.DLR = as.formula(paste("MTM~",paste(c("AFP","AP.VMI","AP.ElectronDensity","PVP.IodineDensity"), collapse = '+'),sep=""))
 fit.multi.DLR = glm(formul.DLR, binomial(logit), data = dd.train)
 dd$lp.DLR = predict(fit.multi.DLR, newdata = dd,type = "response")
-formul.CR = as.formula(paste("MTM~",paste(c("AFP","Obvineco"), collapse = '+'),sep=""))
+formul.CR = as.formula(paste("MTM~",paste(c("AFP","substantial_necrosis"), collapse = '+'),sep=""))
 fit.multi.CR = glm(formul.CR, binomial(logit), data = dd.train)
 dd$lp.CR = predict(fit.multi.CR, newdata = dd,type = "response")
 dd.train = dd[which(dd$dataset == 1),]
@@ -439,19 +439,21 @@ roc.PP.2 = roc.test(auc.3a,auc.4a)
 roc.PP.3 = roc.test(auc.5a,auc.6a)
 
 #	subnecro
-dd.train.Obvineco1 = dd.train[which(dd.train$Obvineco==1),]
-dd.train.Obvineco0 = dd.train[which(dd.train$Obvineco==0),]
-dd.internal_test.Obvineco1 = dd.internal_test[which(dd.internal_test$Obvineco==1),]
-dd.internal_test.Obvineco0 = dd.internal_test[which(dd.internal_test$Obvineco==0),]
-dd.external_test.Obvineco1 = dd.external_test[which(dd.external_test$Obvineco==1),]
-dd.external_test.Obvineco0 = dd.external_test[which(dd.external_test$Obvineco==0),]
+dd.train.substantial_necrosis1 = dd.train[which(dd.train$substantial_necrosis==1),]
+dd.train.substantial_necrosis0 = dd.train[which(dd.train$substantial_necrosis==0),]
+dd.internal_test.substantial_necrosis1 = dd.internal_test[which(dd.internal_test$substantial_necrosis==1),]
+dd.internal_test.substantial_necrosis0 = dd.internal_test[which(dd.internal_test$substantial_necrosis==0),]
+dd.external_test.substantial_necrosis1 = dd.external_test[which(dd.external_test$substantial_necrosis==1),]
+dd.external_test.substantial_necrosis0 = dd.external_test[which(dd.external_test$substantial_necrosis==0),]
 
-auc.1b = roc(dd.train.Obvineco1$MTM, dd.train.Obvineco1$lp.DLRE) 
-auc.2b = roc(dd.train.Obvineco0$MTM, dd.train.Obvineco0$lp.DLR)
-auc.3b = roc(dd.internal_test.Obvineco1$MTM, dd.internal_test.Obvineco1$lp.DLR)
-auc.4b = roc(dd.internal_test.Obvineco0$MTM, dd.internal_test.Obvineco0$lp.DLR) 
-auc.5b = roc(dd.external_test.Obvineco1$MTM, dd.external_test.Obvineco1$lp.DLR)
-auc.6b = roc(dd.external_test.Obvineco0$MTM, dd.external_test.Obvineco0$lp.DLR) 
+auc.1b = roc(dd.train.substantial_necrosis1$MTM, dd.train.substantial_necrosis1$lp.DLR) 
+auc.2b = roc(dd.train.substantial_necrosis0$MTM, dd.train.substantial_necrosis0$lp.DLR)
+auc.3b = roc(dd.internal_test.substantial_necrosis1$MTM, dd.internal_test.substantial_necrosis1$lp.DLR)
+auc.4b = roc(dd.internal_test.substantial_necrosis0$MTM, dd.internal_test.substantial_necrosis0$lp.DLR) 
+auc.5b = roc(dd.external_test.substantial_necrosis1$MTM, dd.external_test.substantial_necrosis1$lp.DLR)
+auc.6b = roc(dd.external_test.substantial_necrosis0$MTM, dd.external_test.substantial_necrosis0$lp.DLR) 
+
+
 
 #----------
 # KM
