@@ -79,5 +79,11 @@ nomogram_model.R
 If you find this code and paper useful for your research, please kindly cite our paper.
 
 ```
-
+@article{doi:10.1148/radiol.230255,
+author = {Li, Mengsi and Fan, Yaheng and You, Huayu and Li, Chao and Luo, Ma and Zhou, Jing and Li, Anqi and Zhang, Lina and Yu, Xiao and Deng, Weiwei and Zhou, Jinhui and Zhang, Dingyue and Zhang, Zhongping and Chen, Haimei and Xiao, Yuanqiang and Huang, Bingsheng and Wang, Jin},
+title = {Dual-Energy CT Deep Learning Radiomics to Predict Macrotrabecular-Massive Hepatocellular Carcinoma},
+journal = {Radiology},
+volume = {308},
+pages = {e230255},
+year = {2023}}
 ```
