@@ -20,17 +20,17 @@ def RadioFeature(Imgpath, savefeaturepath, yamlpath, maps):
                 -Imgpath
                 ---IMG
                 ----M40
-                -------AP_1.nii.gz
-                -------AP_2.nii.gz
+                -------AP_S1.nii.gz
+                -------AP_S2.nii.gz
                 -------....nii.gz
                 ----MASK
-                -------AP_1.nii.gz
-                -------AP_2.nii.gz
+                -------AP_S1.nii.gz
+                -------AP_S2.nii.gz
                 -------....nii.gz
     :param savefeaturepath:
                 -AP_M40
-                ---1.h5
-                ---2.h5
+                ---S1.h5
+                ---S2.h5
                 ---....h5
     :param yamlpath:
     :return: features.h5 files
@@ -51,8 +51,8 @@ def RadioFeature(Imgpath, savefeaturepath, yamlpath, maps):
             maskFilepath = os.path.join(maskpath, maskname)
             datainfo = imgname.split('.')[0]
             # files information
-            id = datainfo.split('_')[2]
-            phase_map =  datainfo.split('_')[0]+'_'+ datainfo.split('_')[1]
+            id = datainfo.split('_')[1]
+            phase_map = datainfo.split('_')[0]+'_'+maps
             print('Schedule:' + str(flag) + ' / ' + str(num) + '||   Current: ' + str(imgname) + ' | ' + str(maskname))
             # h5 save features
             finall_save_path = os.path.join(savefeaturepath, phase_map)
