@@ -67,7 +67,7 @@ class Classfier():
         return coef, intercept, mse
 
     def feature_choose(self, Data, Data_valid, Data_out, label, pers_chi=5, test_outside=True):
-        function_choose = feature_selection.mutual_info_classif2
+        function_choose = feature_selection.mutual_info_classif
         fs = feature_selection.SelectKBest(function_choose, k=pers_chi)
         feature = fs.fit_transform(Data, label)
         random_state_save = str(fs.pvalues_)
